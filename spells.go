@@ -16,12 +16,17 @@ type Spells struct {
 	} `json:"results"`
 }
 
-func GetSpellsRequest(level string) (Spells, error) {
-	var url string
-	if level != "" {
-		url = baseURL +"/spells" + "?level=" + level
-	} else {
-		url = baseURL + "/spells"
+func GetSpellsRequest(params []string) (Spells, error) {
+	url := baseURL + "/spells/"
+	if len(params) >= 1 {
+		if len(params[0]) > 1 {
+			url += "?school=" + params[0]
+		} else {
+			url += "?level=" + params[0]
+			if len(params) >= 2 {
+				url += "&school=" + params[1]
+			}
+		}
 	}
 	method := "GET"
 	client := &http.Client {
@@ -54,11 +59,11 @@ func GetSpellsRequest(level string) (Spells, error) {
 }
 
 func commandSpells(cfg * Config, args ...string) error {
-	spellLevel := ""
+	var spellParams []string
 	if len(args) >= 1 {
-		spellLevel = args[0]
+		spellParams = args
 	}
-	spells, err := GetSpellsRequest(spellLevel)
+	spells, err := GetSpellsRequest(spellParams)
 	if err != nil {
 		return err
 	}
