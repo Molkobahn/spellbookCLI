@@ -17,12 +17,13 @@ type Spells struct {
 }
 
 func GetSpellsRequest(level string) (Spells, error) {
-	url := baseURL + "/spells"
+	var url string
 	if level != "" {
-		url = url + "?level=" + level
+		url = baseURL +"/spells" + "?level=" + level
+	} else {
+		url = baseURL + "/spells"
 	}
 	method := "GET"
-
 	client := &http.Client {
 	}
 	req, err := http.NewRequest(method, url, nil)
@@ -54,7 +55,7 @@ func GetSpellsRequest(level string) (Spells, error) {
 
 func commandSpells(cfg * Config, args ...string) error {
 	spellLevel := ""
-	if len(args) > 1 {
+	if len(args) >= 1 {
 		spellLevel = args[0]
 	}
 	spells, err := GetSpellsRequest(spellLevel)

@@ -17,7 +17,7 @@ type cliCommand struct {
 func getCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"close": {
-			name:	"close",
+			name:			"close",
 			description:	"Close the spellbook",
 			callback:		commandClose,
 		},
@@ -25,6 +25,11 @@ func getCommands() map[string]cliCommand {
 			name: 			"spells",
 			description:	"Shows list of spells",
 			callback:		commandSpells,		
+		},
+		"help": {
+			name:			"help",
+			description:	"Shows list of available commands",
+			callback:		commandHelp,
 		},
 	}
 }
@@ -45,7 +50,6 @@ func startRepl(cfg *Config) {
 		if len(words) > 1 {
 			args = words[1:]
 		}
-
 		command, exists := getCommands()[commandName]
 		if exists {
 			err := command.callback(cfg, args...)
