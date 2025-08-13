@@ -3,6 +3,7 @@
 A CLI tool for searching for DnD spells using the dnd5eapi<br/>
 <br/>
 Available commands:<br/>
+<br/>
 help: shows the available commands<br/>
 
 close: closes the spellbook<br/>
