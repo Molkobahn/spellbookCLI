@@ -8,4 +8,4 @@ help: shows the available commands<br/>
 
 close: closes the spellbook<br/>
 
-spells {level}: searches for spells. filter by spell level with the optional argument<br/>
+spells {level}{school}: searches for spells. filter by spell level and/or school with the optional arguments<br/>
